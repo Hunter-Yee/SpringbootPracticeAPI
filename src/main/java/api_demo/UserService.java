@@ -16,11 +16,19 @@ public class UserService {
     }
 
     public JsonNode getUser(int id) {
-        return restClient.get()
-                .uri("/users/{id}", id)
-                .retrieve()
-                .body(JsonNode.class);
-    }
+        try {
+            return restClient.get()
+                    .uri("/users/{id}", id)
+                    .retrieve()
+                    .body(JsonNode.class);
+
+        } catch (org.springframework.web.client.HttpClientErrorException.NotFound ex) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.NOT_FOUND,
+                    "User not found"
+                );
+            }
+        }
 
     public JsonNode getAllUsers() {
         return restClient.get()
@@ -29,4 +37,13 @@ public class UserService {
                 .body(JsonNode.class);
     }
 
+    public User getUserSummary(int id) {
+        JsonNode data = getUser(id);
+
+        return new User(
+                data.get("id").asInt(),
+                data.get("name").asText(),
+                data.get("email").asText()
+        );
+    }
 }

@@ -24,4 +24,11 @@ public class UserController {
         return userService.getAllUsers();
     }
     // Ex: http://localhost:8081/api/users
+
+    @GetMapping("/{id}/summary")
+    public User getUserSummary(@PathVariable int id) {
+        return userService.getUserSummary(id);
+    }
+    // Ex: http://localhost:8081/api/users/1/summary
+
 }
