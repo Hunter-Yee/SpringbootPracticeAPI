@@ -1,4 +1,4 @@
-Practice using Spring Boot and APIs using https://api.jsonplaceholder.dev
+Practice using Spring Boot and APIs using "https://jsonplaceholder.typicode.com" and https://start.spring.io/
 
 Request flow:
 - Request /api/users/1 from local Spring Boot application
